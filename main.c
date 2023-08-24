@@ -163,10 +163,10 @@ void movie_list(struct ticket movies[])
     strcpy(movies[0].name, "Dhaka Attack             101");
     movies[0].price = 350;
     movies[0].code = 101;
-    strcpy(movies[1].name, "Mission Xtreame          102");
+    strcpy(movies[1].name, "Mission Extreme          102");
     movies[1].price = 350;
     movies[1].code = 102;
-    strcpy(movies[2].name, "Din The Day              103");
+    strcpy(movies[2].name, "Din: The Day              103");
     movies[2].price = 350;
     movies[2].code = 103;
     strcpy(movies[3].name, "American Psycho          201");
@@ -175,13 +175,13 @@ void movie_list(struct ticket movies[])
     strcpy(movies[4].name, "Oppenheimer              202");
     movies[4].price = 350;
     movies[4].code = 202;
-    strcpy(movies[5].name, "Top GUN                  203");
+    strcpy(movies[5].name, "The Dark Knight          203");
     movies[5].price = 350;
     movies[5].code = 203;
     strcpy(movies[6].name, "Barbie                   204");
     movies[6].price = 350;
     movies[6].code = 204;
-    strcpy(movies[7].name, "Avengers END GAME        205");
+    strcpy(movies[7].name, "Avengers: End Game       205");
     movies[7].price = 350;
     movies[7].code = 205;
     strcpy(movies[8].name, "Pathan                   301");
