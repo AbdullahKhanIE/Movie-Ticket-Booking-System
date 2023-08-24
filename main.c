@@ -4,32 +4,76 @@
 
 int home_screen();
 void about_us();
-int admin();
-
+// int admin();
+void construction();
+int return_home();
+void customer_mode();
 int main()
 {
 home:
     int home_menu = home_screen();
     if (home_menu == 1)
     {
-        if (admin(0) == 3)
+        construction();
+        if (return_home(3) == 1)
         {
             goto home;
         }
     }
     else if (home_menu == 2)
     {
+        int option;
+        customer_mode();
+        scanf("%d", &option);
+        switch (option)
+        {
+        case 1:
+            construction();
+            if (return_home(3) == 1)
+            {
+                goto home;
+            }
+            break;
+        case 2:
+            construction();
+            if (return_home(3) == 1)
+            {
+                goto home;
+            }
+            break;
+        case 3:
+            construction();
+            if (return_home(3) == 1)
+            {
+                goto home;
+            }
+            break;
+        case 4:
+            construction();
+            if (return_home(3) == 1)
+            {
+                goto home;
+            }
+            break;
+        default:
+            if (return_home(3) == 1)
+            {
+                goto home;
+            }
+            break;
+        }
+        if (return_home(3) == 1)
+        {
+            goto home;
+        }
     }
     else
     {
         about_us();
-
-        int enter = 0;
-        while (enter != 1)
+        if (return_home(1) == 1)
         {
-            scanf(" %d", &enter);
+            goto home;
         }
-        goto home;
     }
     return 0;
 }
@@ -61,30 +105,43 @@ int home_screen()
     }
     return x;
 }
-int admin()
-{
-    int adm;
-    printf("\n\t\tWelcome to Admin Panel!!!\n\n\n");
-    printf("\t\t1 ) Login\n\n");
-    printf("\t\t2 ) Signup\n\n");
-    printf("\t\t3 ) Back to Home page\n\n");
-    printf("\t\tChoose your Option ==> ");
-    scanf(" %d", &adm);
-    switch (adm)
-    {
-    case 3:
-        return adm;
-        break;
-    default:
-        break;
-    }
-}
+
 void about_us()
 {
     printf("\n\n\t\t\t\t\t    |      About Developers       |\t\n");
     printf("\n\t\t\t\t\t\t    Abdullah Khan  \n");
     // printf("\t\t\t\t\t\tProgrammer & Developer\n");
     printf("\n\t\t\t\t\t\t Dept. of CSE , UIU\n\n");
-    printf("\n\t\tPress 1 to Return to Homepage............\n");
-    printf("\t\t==>: ");
+}
+
+int return_home(int quit)
+{
+
+    printf("\n\t\tPress %d to Return to Homepage...\n", quit);
+    int enter = 0;
+    while (enter != quit)
+    {
+        printf("\t\t==> ");
+        scanf(" %d", &enter);
+    }
+    printf("\n\t\t_______________________________\n");
+    return 1;
+}
+void construction()
+{
+    printf("\t\t_______________________________\n");
+    printf("\t\tThis Page is Under Construction\n\n");
+    printf("\t\t   Wait for 3 Business Days   \n");
+    printf("\t\t-------------------------------\n");
+}
+
+void customer_mode()
+{
+    printf("\t\t\t\t\t     ------------------------\t\n");
+    printf("\t\t\t\t\t    |      CUSTOMER MODE     |\t\n");
+    printf("\t\t\t\t\t     ------------------------\t\n");
+    printf("\n\t\t1 ) Login as Customer\n");
+    printf("\t\t2 ) Movie Information & Set show time \n");
+    printf("\t\t3 ) Book Tickets\n");
+    printf("\t\t4 ) Logout\n\n");
 }
