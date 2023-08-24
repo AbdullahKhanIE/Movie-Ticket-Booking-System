@@ -13,14 +13,47 @@ void about_us();
 void construction();
 int return_home();
 void customer_mode();
-void movie_list(struct ticket movies[]);
-
+void movie_list_print(struct ticket movies[]);
+int ticket_booking(struct ticket movies[], int *ticket);
+float payment_checkout(float cost);
 int main()
 {
+    int total_movie = 9;
     struct ticket movies[N];
+    strcpy(movies[0].name, "Dhaka Attack             101");
+    movies[0].price = 350;
+    movies[0].code = 101;
+    strcpy(movies[1].name, "Mission Extreme          102");
+    movies[1].price = 350;
+    movies[1].code = 102;
+    strcpy(movies[2].name, "Din: The Day              103");
+    movies[2].price = 350;
+    movies[2].code = 103;
+    strcpy(movies[3].name, "American Psycho          201");
+    movies[3].price = 350;
+    movies[3].code = 201;
+    strcpy(movies[4].name, "Oppenheimer              202");
+    movies[4].price = 350;
+    movies[4].code = 202;
+    strcpy(movies[5].name, "The Dark Knight          203");
+    movies[5].price = 350;
+    movies[5].code = 203;
+    strcpy(movies[6].name, "Barbie                   204");
+    movies[6].price = 350;
+    movies[6].code = 204;
+    strcpy(movies[7].name, "Avengers: End Game       205");
+    movies[7].price = 350;
+    movies[7].code = 205;
+    strcpy(movies[8].name, "Pathan                   301");
+    movies[8].price = 350;
+    movies[8].code = 301;
+    strcpy(movies[9].name, "Vikram Vedha             302");
+    movies[9].price = 350;
+    movies[9].code = 302;
 home:
 
     int home_menu = home_screen();
+    float total_cost = 0;
     if (home_menu == 1)
     {
 
@@ -46,22 +79,27 @@ home:
             }
             break;
         case 2:
-            movie_list(movies);
+            movie_list_print(movies);
             if (return_home(1) == 1)
             {
                 goto home;
             }
             break;
         case 3:
-            construction();
-            if (return_home(3) == 1)
+            int ticket_code = 0;
+            if (ticket_booking(movies, &ticket_code) != 0)
+            {
+                payment_checkout(total_cost);
+                goto home;
+            }
+            else
             {
                 goto home;
             }
             break;
         case 4:
             construction();
-            if (return_home(3) == 1)
+            if (return_home(1) == 1)
             {
                 goto home;
             }
@@ -113,7 +151,6 @@ int home_screen()
     }
     return x;
 }
-
 void about_us()
 {
     printf("\n\n\t\t\t\t\t    |      About Developers       |\t\n");
@@ -121,10 +158,8 @@ void about_us()
     // printf("\t\t\t\t\t\tProgrammer & Developer\n");
     printf("\n\t\t\t\t\t\t Dept. of CSE , UIU\n\n");
 }
-
 int return_home(int quit)
 {
-
     printf("\n\t\tPress %d to Return to Homepage...\n", quit);
     int enter = 0;
     while (enter != quit)
@@ -142,7 +177,6 @@ void construction()
     printf("\t\t   Wait for 3 Business Days   \n");
     printf("\t\t-------------------------------\n");
 }
-
 void customer_mode()
 {
     printf("\t\t\t     ------------------------\t\n");
@@ -153,43 +187,12 @@ void customer_mode()
     printf("\t\t3 ) Book Tickets\n");
     printf("\t\t4 ) Logout\n\n");
 }
-void movie_list(struct ticket movies[])
+void movie_list_print(struct ticket movies[])
 {
 
     printf("\t\t  ------------------------\t\n");
     printf("\t\t |     Available Shows    |\t\n");
     printf("\t\t  ------------------------\t\n");
-
-    strcpy(movies[0].name, "Dhaka Attack             101");
-    movies[0].price = 350;
-    movies[0].code = 101;
-    strcpy(movies[1].name, "Mission Extreme          102");
-    movies[1].price = 350;
-    movies[1].code = 102;
-    strcpy(movies[2].name, "Din: The Day              103");
-    movies[2].price = 350;
-    movies[2].code = 103;
-    strcpy(movies[3].name, "American Psycho          201");
-    movies[3].price = 350;
-    movies[3].code = 201;
-    strcpy(movies[4].name, "Oppenheimer              202");
-    movies[4].price = 350;
-    movies[4].code = 202;
-    strcpy(movies[5].name, "The Dark Knight          203");
-    movies[5].price = 350;
-    movies[5].code = 203;
-    strcpy(movies[6].name, "Barbie                   204");
-    movies[6].price = 350;
-    movies[6].code = 204;
-    strcpy(movies[7].name, "Avengers: End Game       205");
-    movies[7].price = 350;
-    movies[7].code = 205;
-    strcpy(movies[8].name, "Pathan                   301");
-    movies[8].price = 350;
-    movies[8].code = 301;
-    strcpy(movies[9].name, "Vikram Vedha             302");
-    movies[9].price = 350;
-    movies[9].code = 302;
     printf("\t\tMovies                  Code\n");
     printf("\t\t____________________________\n");
     for (int i = 0; i < 10; i++)
@@ -197,4 +200,42 @@ void movie_list(struct ticket movies[])
         printf("\t\t%s\n\t\tPrice: %d\n", movies[i].name, movies[i].price);
         printf("\t\t----------------------------\n");
     }
+}
+int ticket_booking(struct ticket movies[], int *code)
+{
+    movie_list_print(movies);
+    printf("\t\tPlease Enter Movie Code\n\t\t==>");
+    scanf(" %d", &(*code));
+    for (int i = 0; i < 10; i++)
+    {
+        if (movies[i].code == *code)
+        {
+            return *code;
+        }
+    }
+    printf("\t\tInvalid Input, Returning to Home Menu\n");
+    return 0;
+}
+float payment_checkout(float cost)
+{
+    int quantity;
+    printf("\n\t\tTicket Quantity : ");
+    scanf(" %d", &quantity);
+ticket:
+    if (quantity > 0 && quantity < 16)
+    {
+        cost += (350 * quantity);
+        printf("\n\t\tPayment Due %.2f taka.\n", cost);
+    }
+    else
+    {
+        while (quantity < 0 || quantity > 15)
+        {
+            printf("\t\tBuying More than 15 Tickets at once is Not Allowed\n");
+            printf("\n\t\tTicket Quantity : ");
+            scanf(" %d", &quantity);
+        }
+        goto ticket;
+    }
+    return cost;
 }
