@@ -18,7 +18,6 @@ int ticket_booking(struct ticket movies[], int *ticket);
 float payment_checkout(float cost);
 void admin_mode();
 
-
 int main()
 {
     int total_movie = 10;
@@ -40,19 +39,28 @@ home:
         int option;
         customer_mode();
         printf("\t\t==> ");
-        scanf("%d", &option);
+        scanf(" %d", &option);
         switch (option)
         {
         case 1:
             customer_mode();
-            if (return_home(1) == 1)
+            if (return_home(6) == 1)
             {
                 goto home;
             }
             break;
+        case 2:
+            construction();
+            if (return_home(6) == 1)
+            {
+                goto home;
+            }
+
+            break;
+
         case 3:
             movie_list_print(movies);
-            if (return_home(1) == 1)
+            if (return_home(6) == 1)
             {
                 goto home;
             }
@@ -71,7 +79,7 @@ home:
             break;
         case 5:
             construction();
-            if (return_home(1) == 1)
+            if (return_home(6) == 1)
             {
                 goto home;
             }
@@ -80,7 +88,7 @@ home:
             goto home;
             break;
         default:
-            printf("\t\tInvalid Input\n");
+            printf("\t\tInvalid Input.\n");
             if (return_home(1) == 1)
             {
                 goto home;
@@ -160,9 +168,11 @@ void default_movie_list(struct ticket movies[])
     movies[9].price = 350;
     movies[9].code = 302;
 }
+
 void about_us()
 {
-    printf("\n\n");
+    printf("\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t{                  About Me                 }\n\n");
     printf("\t\t\t\t ___________________________________________\n");
     printf("\t\t\t\t|                                           |\n");
     printf("\t\t\t\t|               Abdullah Khan               |\n");
@@ -171,7 +181,7 @@ void about_us()
     printf("\t\t\t\t|             Dept. of CSE, UIU             |\n");
     printf("\t\t\t\t|                                           |\n");
     printf("\t\t\t\t| Email: AbdullaKkhan.IE.official@gmail.com |\n");
-    printf("\t\t\t\t|___________________________________________|\n\n\n\n\n");
+    printf("\t\t\t\t|___________________________________________|\n\n\n\n\n\n\n");
 }
 
 int return_home(int quit)
@@ -236,27 +246,27 @@ int ticket_booking(struct ticket movies[], int *code)
         }
     }
 
-    printf("\t\tInvalid Input, Returning to Home Menu\n");
+    printf("\t\tInvalid Input, Returning to Home Menu.\n");
     return 0;
 }
 
 float payment_checkout(float cost)
 {
     int quantity;
-    printf("\n\t\tTicket Quantity : ");
+    printf("\n\t\tTicket Quantity: ");
     scanf(" %d", &quantity);
 ticket:
     if (quantity > 0 && quantity < 16)
     {
         cost += (350 * quantity);
-        printf("\n\t\tPayment Due %.2f taka.\n\t\tCollect the Receipt From the Printer\n", cost);
+        printf("\n\t\tPayment Due %.2f Taka.\n\t\tCollect the Receipt From the Printer.\n", cost);
     }
     else
     {
         while (quantity < 0 || quantity > 15)
         {
-            printf("\t\tBuying More than 15 Tickets at once is Not Allowed\n");
-            printf("\n\t\tTicket Quantity : ");
+            printf("\t\tBuying More than 15 Tickets at once is Not Allowed.\n");
+            printf("\n\t\tTicket Quantity: ");
             scanf(" %d", &quantity);
         }
         goto ticket;
@@ -285,16 +295,16 @@ void admin_mode()
     }
     else if (option == 3 || option == 4 || option == 5)
     {
-        printf("\t\tAccess Denied!\n\t\tReturning To Home Menu\n");
+        printf("\t\tAccess Denied!\n\t\tReturning To Home Menu.\n");
     }
 
     else if (option == 6)
     {
-        printf("\n\t\tReturning To Home Menu\n");
+        printf("\n\t\tReturning To Home Menu.\n");
     }
     else
     {
-        printf("\t\t\tInvalid Input, Returning To Home Menu\n");
+        printf("\t\t\tInvalid Input, Returning To Home Menu.\n");
         return;
     }
 }
