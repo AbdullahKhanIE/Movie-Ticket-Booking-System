@@ -290,7 +290,7 @@ void admin_mode()
 
     else if (option == 6)
     {
-        printf("n\t\tReturning To Home Menu\n");
+        printf("\n\t\tReturning To Home Menu\n");
     }
     else
     {
