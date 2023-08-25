@@ -10,14 +10,15 @@ struct ticket
 int home_screen();
 void default_movie_list(struct ticket movies[]);
 void about_us();
-// int admin();
 void construction();
-int return_home();
+int return_home(int quit);
 void customer_mode();
 void movie_list_print(struct ticket movies[]);
 int ticket_booking(struct ticket movies[], int *ticket);
 float payment_checkout(float cost);
 void admin_mode();
+
+
 int main()
 {
     int total_movie = 10;
@@ -125,6 +126,7 @@ int home_screen()
     }
     return x;
 }
+
 void default_movie_list(struct ticket movies[])
 {
     strcpy(movies[0].name, "Dhaka Attack             101");
@@ -165,6 +167,7 @@ void about_us()
     // printf("\t\t\t\t\t\tProgrammer & Developer\n");
     printf("\n\t\t\t\t\t\t Dept. of CSE , UIU\n\n");
 }
+
 int return_home(int quit)
 {
     printf("\n\t\tPress %d to Return to Homepage...\n", quit);
@@ -177,6 +180,7 @@ int return_home(int quit)
     printf("\n\t\t_______________________________\n");
     return 1;
 }
+
 void construction()
 {
     printf("\t\t_______________________________\n");
@@ -184,6 +188,7 @@ void construction()
     printf("\t\t   Wait for 3 Business Days   \n");
     printf("\t\t-------------------------------\n");
 }
+
 void customer_mode()
 {
     printf("\t\t\t     ------------------------\t\n");
@@ -196,6 +201,7 @@ void customer_mode()
     printf("\t\t5 ) Logout\n\n");
     printf("\t\t6 ) Return to Home Menu\n");
 }
+
 void movie_list_print(struct ticket movies[])
 {
 
@@ -210,6 +216,7 @@ void movie_list_print(struct ticket movies[])
         printf("\t\t----------------------------\n");
     }
 }
+
 int ticket_booking(struct ticket movies[], int *code)
 {
     movie_list_print(movies);
@@ -226,6 +233,7 @@ int ticket_booking(struct ticket movies[], int *code)
     printf("\t\tInvalid Input, Returning to Home Menu\n");
     return 0;
 }
+
 float payment_checkout(float cost)
 {
     int quantity;
@@ -249,6 +257,7 @@ ticket:
     }
     return cost;
 }
+
 void admin_mode()
 {
     int option;
