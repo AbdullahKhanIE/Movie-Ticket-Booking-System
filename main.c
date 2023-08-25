@@ -114,7 +114,7 @@ int home_screen()
         printf("\t\t|\t\t\t\t          \t\t\t    |\n");
         printf("\t\t|        1 ) Admin\t\t\t   2 ) Customer             |\n");
         printf("\t\t|\t\t\t\t          \t\t\t    |\n");
-        printf("\t\t|\t\t\t   3 ) About Us\t\t\t\t    |\n");
+        printf("\t\t|\t\t\t   3 ) About Me\t\t\t\t    |\n");
         printf("\t\t|\t\t\t\t          \t\t\t    |\n");
         printf("\t\t|___________________________________________________________________|\t\t\t\n\n");
         printf("\t\t==>: ");
@@ -162,10 +162,16 @@ void default_movie_list(struct ticket movies[])
 }
 void about_us()
 {
-    printf("\n\n\t\t\t\t\t    |      About Developers       |\t\n");
-    printf("\n\t\t\t\t\t\t    Abdullah Khan  \n");
+    printf("\n\n");
+    printf("\t\t\t\t ___________________________________________\n");
+    printf("\t\t\t\t|                                           |\n");
+    printf("\t\t\t\t|               Abdullah Khan               |\n");
+    printf("\t\t\t\t|                                           |\n");
     // printf("\t\t\t\t\t\tProgrammer & Developer\n");
-    printf("\n\t\t\t\t\t\t Dept. of CSE , UIU\n\n");
+    printf("\t\t\t\t|             Dept. of CSE, UIU             |\n");
+    printf("\t\t\t\t|                                           |\n");
+    printf("\t\t\t\t| Email: AbdullaKkhan.IE.official@gmail.com |\n");
+    printf("\t\t\t\t|___________________________________________|\n\n\n\n\n");
 }
 
 int return_home(int quit)
@@ -243,7 +249,7 @@ ticket:
     if (quantity > 0 && quantity < 16)
     {
         cost += (350 * quantity);
-        printf("\n\t\tPayment Due %.2f taka.\n", cost);
+        printf("\n\t\tPayment Due %.2f taka.\n\t\tCollect the Receipt From the Printer\n", cost);
     }
     else
     {
