@@ -1,0 +1,36 @@
+			_____________________________________
+			|                                   |
+			|      UIU Movie Ticket Counter     |
+			|                                   |
+			|           Customer Info           |
+
+			Name         : Abdullah Khan
+			Phone Number : 01521439989
+			Email Address: abdullahkhan.ie.official@gmail.com
+			_____________________________________
+			|                                   |
+			|    Movies                  Code   |
+			|    Dhaka Attack             101   |
+			     Quantity                  1     
+			     Price               350.00     
+			|-----------------------------------|
+
+			_____________________________________
+			|                                   |
+			|    Movies                  Code   |
+			|    Pathan                   301   |
+			     Quantity                  4     
+			     Price               1400.00     
+			|-----------------------------------|
+
+			_____________________________________
+			|                                   |
+			|    Movies                  Code   |
+			|    Oppenheimer              202   |
+			     Quantity                  5     
+			     Price               1750.00     
+			|-----------------------------------|
+
+			|-----------------------------------|
+			    Total Cost   3500.00   Taka
+			|-----------------------------------|

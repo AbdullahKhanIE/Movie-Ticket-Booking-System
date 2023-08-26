@@ -7,6 +7,14 @@ struct ticket
     int price;
     int code;
 };
+struct mode
+{
+
+    char fullname[N];
+    char contact[N];
+    char email[N];
+};
+
 int home_screen();
 void default_movie_list(struct ticket movies[]);
 void about_us();
@@ -15,15 +23,25 @@ int return_home(int quit);
 void customer_mode();
 void movie_list_print(struct ticket movies[]);
 int ticket_booking(struct ticket movies[], int *ticket);
-float payment_checkout(float cost);
+void payment_checkout(struct ticket movies[], int code, float *total, FILE *receipt);
 void admin_mode();
+void payment_receipt(float total, FILE *receipt);
 
 int main()
 {
     int total_movie = 10;
+    float total_total = 0;
     struct ticket movies[N];
+    int login = 0;
+    FILE *receipt;
+    receipt = fopen("receipt.txt", "w");
+    fprintf(receipt, "\t\t\t_____________________________________\n");
+    fprintf(receipt, "\t\t\t|                                   |\n");
+    fprintf(receipt, "\t\t\t|      UIU Movie Ticket Counter     |\n");
+    fclose(receipt);
 home:
     default_movie_list(movies);
+    struct mode user[N];
     int home_menu = home_screen();
     float total_cost = 0;
     if (home_menu == 1)
@@ -43,7 +61,50 @@ home:
         switch (option)
         {
         case 1:
-            customer_mode();
+            if (login == 0)
+            {
+                char ch[N];
+                receipt = fopen("receipt.txt", "a");
+                fprintf(receipt, "\t\t\t|                                   |\n");
+                fprintf(receipt, "\t\t\t|           Customer Info           |\n\n");
+                fclose(receipt);
+                printf("\n\t\tEnter Your Full name: ");
+                getchar();
+                fgets(ch, N, stdin);
+                ch[strlen(ch) - 1] = '\0';
+                strcpy(user[0].fullname, ch);
+                printf("\n\t\tEnter your email: ");
+                fgets(ch, N, stdin);
+                ch[strlen(ch) - 1] = '\0';
+                strcpy(user[0].email, ch);
+
+                printf("\n\t\tEnter your contact number: ");
+                fgets(ch, N, stdin);
+                ch[strlen(ch) - 1] = '\0';
+                strcpy(user[0].contact, ch);
+
+                printf("\n\t\tEnter your Password: ");
+                fgets(ch, N, stdin);
+                ch[strlen(ch) - 1] = '\0';
+                if (strcmp(ch, "1234") == 0)
+                {
+                    printf("\n\t\t__________________________________");
+                    printf("\n\t\t|________Login Successful_________|");
+                    login = 1;
+                    receipt = fopen("receipt.txt", "a");
+                    fprintf(receipt, "\t\t\tName         : %s\n\t\t\tPhone Number : %s\n\t\t\tEmail Address: %s\n", user[0].fullname, user[0].contact, user[0].email);
+                    fclose(receipt);
+                }
+                else
+                {
+                    printf("\n\t\t\tWrong Password\n");
+                    goto home;
+                }
+            }
+            else
+            {
+                printf("\n\n\t\t\tALREADY SIGNED IN\n");
+            }
             if (return_home(6) == 1)
             {
                 goto home;
@@ -66,16 +127,26 @@ home:
             }
             break;
         case 4:
-            int ticket_code = 0;
-            if (ticket_booking(movies, &ticket_code) != 0)
+            if (login == 1)
             {
-                payment_checkout(total_cost);
-                goto home;
+                int ticket_code = 0;
+                if (ticket_booking(movies, &ticket_code) != 0)
+                {
+                    payment_checkout(movies, ticket_code, &total_total, &receipt);
+
+                    goto home;
+                }
+                else
+                {
+                    goto home;
+                }
             }
             else
             {
+                printf("\t\t\tSign In First\n");
                 goto home;
             }
+
             break;
         case 5:
             construction();
@@ -86,6 +157,10 @@ home:
             break;
         case 6:
             goto home;
+            break;
+        case 7:
+            payment_receipt(total_total, &receipt);
+            return;
             break;
         default:
             printf("\t\tInvalid Input.\n");
@@ -171,13 +246,13 @@ void default_movie_list(struct ticket movies[])
 
 void about_us()
 {
-    printf("\n\n\n\n\n\n\n\n\n");
+    printf("\n\n\n\n\n\n\n\n");
     printf("\t\t\t\t{                  About Me                 }\n\n");
     printf("\t\t\t\t ___________________________________________\n");
     printf("\t\t\t\t|                                           |\n");
     printf("\t\t\t\t|               Abdullah Khan               |\n");
     printf("\t\t\t\t|                                           |\n");
-    // printf("\t\t\t\t\t\tProgrammer & Developer\n");
+    printf("\t\t\t\t|          Programmer & Developer           |\n");
     printf("\t\t\t\t|             Dept. of CSE, UIU             |\n");
     printf("\t\t\t\t|                                           |\n");
     printf("\t\t\t\t| Email: AbdullaKkhan.IE.official@gmail.com |\n");
@@ -214,8 +289,9 @@ void customer_mode()
     printf("\t\t2 ) Sign Up as Customer\n");
     printf("\t\t3 ) Movie Information\n");
     printf("\t\t4 ) Book Tickets\n");
-    printf("\t\t5 ) Logout\n\n");
+    printf("\t\t5 ) Logout\n");
     printf("\t\t6 ) Return to Home Menu\n");
+    printf("\t\t7 ) Print The Money Receipt\n");
 }
 
 void movie_list_print(struct ticket movies[])
@@ -250,8 +326,10 @@ int ticket_booking(struct ticket movies[], int *code)
     return 0;
 }
 
-float payment_checkout(float cost)
+void payment_checkout(struct ticket movies[], int code, float *total, FILE *receipt)
 {
+    float cost = 0;
+    default_movie_list(movies);
     int quantity;
     printf("\n\t\tTicket Quantity: ");
     scanf(" %d", &quantity);
@@ -259,7 +337,24 @@ ticket:
     if (quantity > 0 && quantity < 16)
     {
         cost += (350 * quantity);
-        printf("\n\t\tPayment Due %.2f Taka.\n\t\tCollect the Receipt From the Printer.\n", cost);
+        *total += cost;
+        for (int i = 0; i < 10; i++)
+        {
+            if (movies[i].code == code)
+            {
+                receipt = fopen("receipt.txt", "a");
+                fprintf(receipt, "\t\t\t_____________________________________\n");
+                fprintf(receipt, "\t\t\t|                                   |\n");
+                fprintf(receipt, "\t\t\t|    Movies                  Code   |\n");
+                fprintf(receipt, "\t\t\t|    %s   |\n", movies[i].name);
+                fprintf(receipt, "\t\t\t     Quantity                  %d     \n", quantity);
+                fprintf(receipt, "\t\t\t     Price               %.2f     \n", cost);
+                fprintf(receipt, "\t\t\t|-----------------------------------|\n\n");
+                fclose(receipt);
+                break;
+            }
+        }
+        printf("\t\tCollect the Receipt From the Printer.\n");
     }
     else
     {
@@ -271,10 +366,11 @@ ticket:
         }
         goto ticket;
     }
-    return cost;
+    return;
 }
 
 void admin_mode()
+
 {
     int option;
     printf("\t\t\t     ------------------------\t\n");
@@ -307,4 +403,30 @@ void admin_mode()
         printf("\t\t\tInvalid Input, Returning To Home Menu.\n");
         return;
     }
+}
+
+void payment_receipt(float total, FILE *receipt)
+{
+    receipt = fopen("receipt.txt", "a");
+    fprintf(receipt, "\t\t\t|-----------------------------------|\n");
+    fprintf(receipt, "\t\t\t    Total Cost   %.2f   Taka\n",total);
+    fprintf(receipt, "\t\t\t|-----------------------------------|\n");
+    fclose(receipt);
+    printf("\n\n\n\n\n\n\n\t\t\t\t|-------------------------------------------|\n");
+    printf("\t\t\t\t| __________________________________________|\n");
+    printf("\t\t\t\t|      Thank You For Using Our Service      |\n");
+    printf("\t\t\t\t|                                           |\n");
+    printf("\t\t\t\t|               Submitted T0:               |\n");
+    printf("\t\t\t\t|            Ms. Sidratul Muntaha           |\n");
+    printf("\t\t\t\t|                                           |\n");
+    printf("\t\t\t\t|    Structured Programming Language Lab    |\n");
+    printf("\t\t\t\t|               Section: C                  |\n");
+    printf("\t\t\t\t|___________________________________________|\n\n\n");
+    printf("\n\t\t\t\t|-------------------------------------------|\n");
+    printf("\t\t\t\t|               Group Members               |\n");
+    printf("\t\t\t\t|        Abdullah Khan  0112310076          |\n");
+    printf("\t\t\t\t|        Iham Araf      0112310515          |\n");
+    printf("\t\t\t\t|        Shakib hasan   0112310379          |\n");
+    printf("\t\t\t\t|-------------------------------------------|\n\n\n\n\n");
+    return;
 }
