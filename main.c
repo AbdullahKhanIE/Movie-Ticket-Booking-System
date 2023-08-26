@@ -417,10 +417,10 @@ void payment_receipt(float total, FILE *receipt)
     printf("\t\t\t\t|      Thank You For Using Our Service      |\n");
     printf("\t\t\t\t|                                           |\n");
     printf("\t\t\t\t|               Submitted T0:               |\n");
-    printf("\t\t\t\t|            Ms. Sidratul Muntaha           |\n");
+    printf("\t\t\t\t|           Ms. Sidratul Muntaha            |\n");
     printf("\t\t\t\t|                                           |\n");
     printf("\t\t\t\t|    Structured Programming Language Lab    |\n");
-    printf("\t\t\t\t|               Section: C                  |\n");
+    printf("\t\t\t\t|                Section: C                 |\n");
     printf("\t\t\t\t|___________________________________________|\n\n\n");
     printf("\n\t\t\t\t|-------------------------------------------|\n");
     printf("\t\t\t\t|               Group Members               |\n");
