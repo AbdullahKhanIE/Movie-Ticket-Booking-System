@@ -422,11 +422,6 @@ void payment_receipt(float total, FILE *receipt)
     printf("\t\t\t\t|    Structured Programming Language Lab    |\n");
     printf("\t\t\t\t|                Section: C                 |\n");
     printf("\t\t\t\t|___________________________________________|\n\n\n");
-    printf("\n\t\t\t\t|-------------------------------------------|\n");
-    printf("\t\t\t\t|               Group Members               |\n");
-    printf("\t\t\t\t|        Abdullah Khan  0112310076          |\n");
-    printf("\t\t\t\t|        Iham Araf      0112310515          |\n");
-    printf("\t\t\t\t|        Shakib hasan   0112310379          |\n");
     printf("\t\t\t\t|-------------------------------------------|\n\n\n\n\n");
     return;
 }
